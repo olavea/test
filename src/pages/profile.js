@@ -44,4 +44,3 @@ const ProfilePage = () => {
 }
 
 export default ProfilePage
-// P.S. Yo
