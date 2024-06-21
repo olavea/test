@@ -40,43 +40,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ProfileEditEmailPage = () => {
+const ProfileEditEmailPage4 = () => {
   const classes = useStyles()
   const { updateUser } = useAuthActions()
-  const [error, setError] = useState(false)
-  const [status, setStatus] = useState("idle")
+  const [error, setError] = useState()
+  const [status, setStatus] = useState()
   const { user } = useAuthState()
+  // currentEmail gets me the users email from useAuthState()
   const currentEmail = user.email
 
   const createEmail = async (event) => {
-    // P.L.A.N. Ruby's Rescue Mission
-    // PREVENT & LISTEN
-    // AWAIT & NAVIGATE
-    // 1. PREVENT Princess Lizabeth from defaultly submitting to Queen Mary 1.'s house arrest
+    // Plan eventhandling
+    //  Plan with an idea for a good location for Princess Lizabeth to escape to
+    // 1. Prevent
+
+    //  Prevent Lizabeth (form) from defaultly self-submitting to Mary 1.'s house arrest
 
     event.preventDefault()
 
-    // 2. LISTEN for the email adress in Ruby's input.
-    // The email adress is Ruby's escape location
+    // 2. Listen for that email adress from Ruby's input
 
     const email = event.target.elements.emailInput.value
     setStatus("pending")
+    // 3. Await & Navigate
 
-    // 3. AWAIT the Answer from Daniel V.'s Userbase library,
+    // 3.2 await the result to the question "is that a correct email adress?" from Daniel V.'s Userbase
 
-    const adressAnswer = await updateUser({ email: email })
-    // Ruby's adressQuestion: "is this email adress invalid?"
-
-    if (adressAnswer.error) {
-      setError(adressAnswer.error)
+    const result = await updateUser({ email: email })
+    // 3.3 if not a correct email adress, try again
+    if (result.error) {
+      setError(result.error)
       setStatus("idle")
     } else {
       setError(false)
       setStatus("idle")
-      // 4. NAVIGATE Princess Lizabeth safely to the future
-      // navigate(`/future`) if the emailAnswer is "not an invalid email adress"
-      // navigate(`/{future}`) How do we set it?
 
+      // 3. Navigate Princess Lizabeth safely to the future navigate(`/future`) if correct email adress
       navigate(`/profile`)
     }
   }
@@ -107,12 +106,12 @@ const ProfileEditEmailPage = () => {
           fullWidth
           label="New email"
           name="email"
-          // placeholder="unicorn@usepow.app"
+          placeholder="unicorn@usepow.app"
           autoComplete="email"
           helperText={
             <>
               {error && error.message}
-              Your current POW! email is <strong>{currentEmail}</strong>.
+              Your current email address is <strong>{currentEmail}</strong>.
             </>
           }
         />
@@ -154,4 +153,4 @@ const ProfileEditEmailPage = () => {
   )
 }
 
-export default ProfileEditEmailPage
+export default ProfileEditEmailPage4
